@@ -1,0 +1,19 @@
+---
+- import_playbook: install-golang.yml
+- import_playbook: install-hugo.yml
+- import_playbook: install-npm.yml
+- name: Install Required Software Packages
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: true
+  post_tasks:
+    - name: Install the packages globally "autoprefixer, postcss-cli, postcss".
+      npm:
+        name: "{{ item }}"
+        global: yes
+      with_items:
+        - autoprefixer
+        - postcss-cli
+        - postcss
+        - npx

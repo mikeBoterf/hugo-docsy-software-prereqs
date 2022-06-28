@@ -1,0 +1,10 @@
+---
+- name: Install NPM package
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Install Software
+      package: 
+        name: npm 
+        state: present

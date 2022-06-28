@@ -1,0 +1,33 @@
+---
+- name: Install Golang package
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Create /tmp/golang-download
+      file:
+        path: /tmp/golang-download
+        state: directory
+
+    - name: Download Golang package
+      get_url:
+        url: https://go.dev/dl/go1.18.3.linux-amd64.tar.gz
+        dest: /tmp/golang-download/go1.18.3.tar.gz
+        mode: 0777
+      register: get_golang
+
+    - name: Clear Golang directory
+      file:
+        path: /usr/local/go
+        state: "{{ item }}"
+      with_items:
+        - absent
+        - directory
+      when: get_golang.changed
+
+    - name: Unpack Golang
+      unarchive: 
+        src: /tmp/golang-download/go1.18.3.tar.gz
+        dest: /usr/local/
+      when: get_golang.changed
+
