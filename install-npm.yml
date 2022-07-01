@@ -2,9 +2,37 @@
 - name: Install NPM package
   hosts: localhost
   connection: local
-  gather_facts: false
+  gather_facts: true
+  become: true
+  become_method: sudo
+  vars:
+    NODEJS_VERSION: "18"
   tasks:
-    - name: Install Software
-      package: 
-        name: npm 
-        state: present
+    - name: Install Node with apt package manager
+      block:
+        - name: Install the gpg key for nodejs LTS
+          apt_key:
+            url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+            state: present
+
+        - name: Install the nodejs LTS repos
+          apt_repository:
+            repo: "deb https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x {{ ansible_distribution_release }} main"
+            state: present
+            update_cache: yes
+
+        - name: Install the nodejs
+          apt:
+            name: nodejs
+            state: present
+      when: ansible_facts.pkg_mgr == 'apt'
+    - name: Install Node dnf package manager
+      block:
+        - name: Install Node:16 # 16 is still the lts until later in 2022
+          become: true
+          become_method: sudo
+          dnf:
+            name: '@nodejs:16' # equivilent dnf module install nodejs:16
+            state: present
+      when: ansible_facts.pkg_mgr == 'dnf'
+
