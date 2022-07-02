@@ -11,6 +11,7 @@ ansible-playbook init-hugo-workstation.yml --ask-become-pass
 # tl;dr
 
 Each playbook handles a task of installing a software application.
+> You may still need to execute `npm install -D autoprefixer` in your new site root directory to get `hugo -v` to work.
 
 ## Software Installed
 
