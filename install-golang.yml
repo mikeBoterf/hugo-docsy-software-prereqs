@@ -2,6 +2,8 @@
 - name: Install Golang package
   hosts: localhost
   connection: local
+  become: true
+  become_method: sudo
   gather_facts: false
   tasks:
     - name: Create /tmp/golang-download
@@ -29,5 +31,12 @@
       unarchive: 
         src: /tmp/golang-download/go1.18.3.tar.gz
         dest: /usr/local/
+      when: get_golang.changed
+
+    - name: Set symlink
+      file:
+        src: /usr/local/go/bin/go
+        dest: /usr/local/bin/go
+        state: link
       when: get_golang.changed
 

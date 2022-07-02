@@ -1,7 +1,7 @@
 ---
 - import_playbook: install-golang.yml
 - import_playbook: install-hugo.yml
-- import_playbook: install-npm.yml
+- import_playbook: install-node.yml
 - name: Install Required Software Packages
   hosts: localhost
   connection: local

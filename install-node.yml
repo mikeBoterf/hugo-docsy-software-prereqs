@@ -21,10 +21,10 @@
             state: present
             update_cache: yes
 
-        - name: Install the nodejs
+        - name: Install nodejs
           apt:
             name: nodejs
-            state: present
+            state: latest
       when: ansible_facts.pkg_mgr == 'apt'
     - name: Install Node dnf package manager
       block:
@@ -32,7 +32,7 @@
           become: true
           become_method: sudo
           dnf:
-            name: '@nodejs:16' # equivilent dnf module install nodejs:16
+            name: '@nodejs:16' # equivalent dnf module install nodejs:16
             state: present
       when: ansible_facts.pkg_mgr == 'dnf'
 
