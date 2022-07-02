@@ -1,6 +1,6 @@
-# hugo-install
+# hugo-docsy-install
 
-Ansible playbooks to install software required for hugo to function properly.
+Ansible playbooks to install software required for hugo-docsy build to function properly.
 
 ## Run it
 
