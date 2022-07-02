@@ -13,6 +13,25 @@ ansible-playbook init-hugo-workstation.yml --ask-become-pass
 Each playbook handles a task of installing a software application.
 > You may still need to execute `npm install -D autoprefixer` in your new site root directory to get `hugo -v` to work.
 
+Quick start for docsy site post ansible playbooks:
+---
+
+```shell
+hugo new site my-new-site
+cd  my-new-site
+hugo mod init github.com/me/my-new-site
+hugo mod get github.com/google/docsy@v0.4.0
+cat >> config.toml <<EOL
+[module]
+proxy = "direct"
+[[module.imports]]
+path = "github.com/google/docsy"
+[[module.imports]]
+path = "github.com/google/docsy/dependencies"
+EOL
+hugo server
+```
+
 ## Software Installed
 
 - Install golang
