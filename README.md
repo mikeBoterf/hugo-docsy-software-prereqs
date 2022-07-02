@@ -1,6 +1,6 @@
 # hugo-install
 
-Just simple Ansible scripts to install software required for hugo to function properly.
+Just simple Ansible playbooks to install software required for hugo to function properly.
 
 ## Run it
 
